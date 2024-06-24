@@ -2,6 +2,7 @@
 using BFF_MotorRentApp.Database;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace BFF_MotorRentApp
 {
@@ -15,6 +16,19 @@ namespace BFF_MotorRentApp
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+            #region Swagger Gen
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("user", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Pesquisa De Preço",
+                    Description = "Api de usuários"
+                });
+            });
+            #endregion
 
             #region MySql Config
             var mySqlConnection = builder.Configuration.GetConnectionString("Mysql");
@@ -52,6 +66,8 @@ namespace BFF_MotorRentApp
 
 
             var app = builder.Build();
+
+            app.MapIdentityApi<IdentityUser>().WithGroupName("user").WithTags("User");
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
