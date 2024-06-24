@@ -26,10 +26,10 @@ namespace BFF_MotorRentApp
             builder.Services.AddAuthorization();
             builder.Services.AddIdentityApiEndpoints<IdentityUser>(opt => {
                 // Password settings.
-                opt.Password.RequireDigit = false;
-                opt.Password.RequireLowercase = false;
-                opt.Password.RequireNonAlphanumeric = false;
-                opt.Password.RequireUppercase = false;
+                opt.Password.RequireDigit = true;
+                opt.Password.RequireLowercase = true;
+                opt.Password.RequireNonAlphanumeric = true;
+                opt.Password.RequireUppercase = true;
                 opt.Password.RequiredLength = 5;
                 opt.Password.RequiredUniqueChars = 1;
 
