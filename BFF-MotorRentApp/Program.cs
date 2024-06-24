@@ -1,5 +1,6 @@
 
 using BFF_MotorRentApp.Database;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace BFF_MotorRentApp
@@ -18,6 +19,31 @@ namespace BFF_MotorRentApp
             #region MySql Config
             var mySqlConnection = builder.Configuration.GetConnectionString("Mysql");
             builder.Services.AddDbContext<AppDbContext>(opt => opt.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
+            #endregion
+
+            #region Auth Config
+            builder.Services.AddAuthentication().AddBearerToken();
+            builder.Services.AddAuthorization();
+            builder.Services.AddIdentityApiEndpoints<IdentityUser>(opt => {
+                // Password settings.
+                opt.Password.RequireDigit = false;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequiredLength = 5;
+                opt.Password.RequiredUniqueChars = 1;
+
+                // Lockout settings.
+                opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                opt.Lockout.MaxFailedAccessAttempts = 5;
+                opt.Lockout.AllowedForNewUsers = true;
+
+                // User settings.
+                opt.User.AllowedUserNameCharacters =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+#!";
+                opt.User.RequireUniqueEmail = true;
+            })
+            .AddEntityFrameworkStores<AppDbContext>();
             #endregion
 
 
