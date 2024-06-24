@@ -38,7 +38,8 @@ namespace BFF_MotorRentApp
             #region Auth Config
             builder.Services.AddAuthentication().AddBearerToken();
             builder.Services.AddAuthorization();
-            builder.Services.AddIdentityApiEndpoints<IdentityUser>(opt => {
+            builder.Services.AddIdentityApiEndpoints<IdentityUser>(opt =>
+            {
                 // Password settings.
                 opt.Password.RequireDigit = true;
                 opt.Password.RequireLowercase = true;
@@ -73,7 +74,10 @@ namespace BFF_MotorRentApp
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(x =>
+                {
+                    x.SwaggerEndpoint("/swagger/user/swagger.json", "User Api");
+                });
             }
 
             app.UseHttpsRedirection();
