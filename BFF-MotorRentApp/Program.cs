@@ -70,7 +70,10 @@ namespace BFF_MotorRentApp
                     opt.User.AllowedUserNameCharacters =
                     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+#!";
                     opt.User.RequireUniqueEmail = true;
+
+                    // SignIn settings.
                     opt.SignIn.RequireConfirmedAccount = true;
+                    opt.SignIn.RequireConfirmedEmail = true;
                 })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
@@ -110,7 +113,7 @@ namespace BFF_MotorRentApp
 
             var app = builder.Build();
 
-            app.MapIdentityApi<IdentityUser>().WithGroupName("user").WithTags("User");
+            //app.MapIdentityApi<IdentityUser>().WithGroupName("user").WithTags("User");
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

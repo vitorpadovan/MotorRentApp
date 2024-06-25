@@ -2,12 +2,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Cryptography;
+using MotorRentApp.Core.Extensions;
 
 namespace BFF_MotorRentApp.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
+    [ApiExplorerSettings(GroupName = "user")]
     [AllowAnonymous]
     public class UserController : ControllerBase
     {
@@ -18,25 +19,6 @@ namespace BFF_MotorRentApp.Controllers
         {
             _signInManager = signInManager;
             this.userManager = userManager;
-        }
-
-        public static string HashPassword(string password)
-        {
-            byte[] salt;
-            byte[] buffer2;
-            if (password == null)
-            {
-                throw new ArgumentNullException("password");
-            }
-            using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, 0x10, 0x3e8))
-            {
-                salt = bytes.Salt;
-                buffer2 = bytes.GetBytes(0x20);
-            }
-            byte[] dst = new byte[0x31];
-            Buffer.BlockCopy(salt, 0, dst, 1, 0x10);
-            Buffer.BlockCopy(buffer2, 0, dst, 0x11, 0x20);
-            return Convert.ToBase64String(dst);
         }
 
         //public static bool VerifyHashedPassword(string hashedPassword, string password)
@@ -88,12 +70,22 @@ namespace BFF_MotorRentApp.Controllers
         [Route("singUp")]
         public async Task<IActionResult> SingUp([FromBody] RegisterRequest login)
         {
-            var r = await userManager.CreateAsync(new IdentityUser() { 
-               Email = login.Email,
-               UserName= login.Email,
-               PasswordHash = HashPassword(login.Password),
-               EmailConfirmed = true
-            });
+            var user = new IdentityUser()
+            {
+                Email = login.Email,
+                UserName = login.Email,
+                PasswordHash = login.Password.HashPassword(),
+                EmailConfirmed = true
+            };
+            var result = await userManager.CreateAsync(user);
+            if (result.Succeeded)
+            {
+
+            }
+            else
+            {
+
+            }
             return Created();
         }
     }
