@@ -3,9 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BFF-MotorRentApp", "BFF-MotorRentApp\BFF-MotorRentApp.csproj", "{B126978C-8702-4C44-A14E-48C4BD02EACC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BFF-MotorRentApp", "BFF-MotorRentApp\BFF-MotorRentApp.csproj", "{B126978C-8702-4C44-A14E-48C4BD02EACC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotorRentApp.Core", "MotorRentApp.Core\MotorRentApp.Core.csproj", "{B295AD07-FCAA-4B50-B46C-DF8C4AD3FCBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorRentApp.Core", "MotorRentApp.Core\MotorRentApp.Core.csproj", "{B295AD07-FCAA-4B50-B46C-DF8C4AD3FCBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotorRentApp.Imp", "MotorRentApp.Imp\MotorRentApp.Imp.csproj", "{F75596FB-191A-4243-84FB-266D6799C804}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExternalServices", "ExternalServices", "{B1998516-3B3A-4B1E-B1FB-D40BF4ED2E7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageService", "MessageService\MessageService.csproj", "{8D478A9D-920C-440F-A434-E8346916F556}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AB214549-E30E-4ECF-B3DA-2849CBC9C886}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotorRentApp.IntegrationTests", "MotorRentApp.IntegrationTests\MotorRentApp.IntegrationTests.csproj", "{508D2BC4-A121-459F-B2E4-F40D18F2A0E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +31,25 @@ Global
 		{B295AD07-FCAA-4B50-B46C-DF8C4AD3FCBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B295AD07-FCAA-4B50-B46C-DF8C4AD3FCBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B295AD07-FCAA-4B50-B46C-DF8C4AD3FCBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F75596FB-191A-4243-84FB-266D6799C804}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F75596FB-191A-4243-84FB-266D6799C804}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F75596FB-191A-4243-84FB-266D6799C804}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F75596FB-191A-4243-84FB-266D6799C804}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D478A9D-920C-440F-A434-E8346916F556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D478A9D-920C-440F-A434-E8346916F556}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D478A9D-920C-440F-A434-E8346916F556}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D478A9D-920C-440F-A434-E8346916F556}.Release|Any CPU.Build.0 = Release|Any CPU
+		{508D2BC4-A121-459F-B2E4-F40D18F2A0E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{508D2BC4-A121-459F-B2E4-F40D18F2A0E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{508D2BC4-A121-459F-B2E4-F40D18F2A0E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{508D2BC4-A121-459F-B2E4-F40D18F2A0E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8D478A9D-920C-440F-A434-E8346916F556} = {B1998516-3B3A-4B1E-B1FB-D40BF4ED2E7A}
+		{508D2BC4-A121-459F-B2E4-F40D18F2A0E3} = {AB214549-E30E-4ECF-B3DA-2849CBC9C886}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F0932DFE-33C1-414F-88F7-0066BCD500FD}
