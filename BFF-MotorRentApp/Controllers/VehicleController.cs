@@ -19,12 +19,12 @@ namespace BFF_MotorRentApp.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = nameof(UserProfiles.COMMONUSER))]
         [Authorize(Roles = nameof(UserProfiles.ADMINISTRATOR))]
         [Route("registration")]
         public IActionResult Registration([FromBody] VehicleRegistration registration)
         {
-            _vehicleBusiness.Registre(new(){
+            _vehicleBusiness.Registre(new()
+            {
                 LicensePlate = registration.LicensePlate,
                 Year = registration.Year,
             });
