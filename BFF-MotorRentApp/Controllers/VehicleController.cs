@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MotorRentApp.Core.Business;
+using MotorRentApp.Core.Enums;
 
 namespace BFF_MotorRentApp.Controllers
 {
@@ -18,7 +19,8 @@ namespace BFF_MotorRentApp.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        //[Authorize(Roles = nameof(UserProfiles.COMMONUSER))]
+        [Authorize(Roles = nameof(UserProfiles.ADMINISTRATOR))]
         [Route("registration")]
         public IActionResult Registration([FromBody] VehicleRegistration registration)
         {

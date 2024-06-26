@@ -10,6 +10,12 @@ using MotorRentApp.Core.Repository;
 using MotorRentApp.Imp.Repository;
 using MotorRentApp.Core.Database;
 using Microsoft.AspNetCore.Identity;
+using MotorRentApp.Core.Services;
+using MotorRentApp.Imp.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace BFF_MotorRentApp
 {
@@ -50,6 +56,25 @@ namespace BFF_MotorRentApp
             #endregion
 
             #region Auth Config
+            var authKey = builder.Configuration["authKey"];
+            var key = Encoding.ASCII.GetBytes(authKey!);
+            builder.Services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
             builder.Services.AddDefaultIdentity<IdentityUser>(
                 opt =>
                 {
@@ -77,37 +102,16 @@ namespace BFF_MotorRentApp
                 })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
-            //builder.Services.AddAuthentication().AddBearerToken();
-            //builder.Services.AddAuthorization();
-            //builder.Services.AddIdentityApiEndpoints<IdentityUser>(opt =>
-            //{
-            //    // Password settings.
-            //    opt.Password.RequireDigit = true;
-            //    opt.Password.RequireLowercase = true;
-            //    opt.Password.RequireNonAlphanumeric = true;
-            //    opt.Password.RequireUppercase = true;
-            //    opt.Password.RequiredLength = 5;
-            //    opt.Password.RequiredUniqueChars = 1;
-
-            //    // Lockout settings.
-            //    opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-            //    opt.Lockout.MaxFailedAccessAttempts = 5;
-            //    opt.Lockout.AllowedForNewUsers = true;
-
-            //    // User settings.
-            //    opt.User.AllowedUserNameCharacters =
-            //    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+#!";
-            //    opt.User.RequireUniqueEmail = true;
-            //})
-            //.AddEntityFrameworkStores<AppDbContext>();
             #endregion
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddTransient<IBackgroundTasksRepository, BackgroundTasksRepository>();
-            builder.Services.AddTransient<IBackgroundTaskBusiness, BackgroundTaskBusiness>();
-            builder.Services.AddTransient<IVehicleBusiness, VehicleBusiness>();
+            builder.Services.AddScoped<IBackgroundTasksRepository, BackgroundTasksRepository>();
+            builder.Services.AddScoped<IBackgroundTaskBusiness, BackgroundTaskBusiness>();
+            builder.Services.AddScoped<IVehicleBusiness, VehicleBusiness>();
+            builder.Services.AddScoped<IUserBusiness, UserBusiness>();
+            builder.Services.AddScoped<ITokenService,TokenService>();
 
             builder.Services.AddRabbitMqService();
 
