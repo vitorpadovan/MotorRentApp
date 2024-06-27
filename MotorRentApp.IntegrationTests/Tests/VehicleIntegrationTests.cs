@@ -34,7 +34,7 @@ namespace MotorRentApp.IntegrationTests.Tests
             var year = DateTime.Now.Year + quantity;
 
             // Act
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync<VehicleRegistration>("api/v1/Vehicle/registration", new()
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync<VehicleRegistrationRequest>("api/v1/Vehicle/registration", new()
             {
                 LicensePlate = "FFX-1212",
                 Year = year
@@ -69,7 +69,7 @@ namespace MotorRentApp.IntegrationTests.Tests
             var year = DateTime.Now.Year;
 
             // Act
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync<VehicleRegistration>("api/v1/Vehicle/registration", new()
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync<VehicleRegistrationRequest>("api/v1/Vehicle/registration", new()
             {
                 LicensePlate = license,
                 Year = year
@@ -97,7 +97,7 @@ namespace MotorRentApp.IntegrationTests.Tests
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             // Act
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync<VehicleRegistration>("api/v1/Vehicle/registration", new()
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync<VehicleRegistrationRequest>("api/v1/Vehicle/registration", new()
             {
                 LicensePlate = license,
                 Year = year

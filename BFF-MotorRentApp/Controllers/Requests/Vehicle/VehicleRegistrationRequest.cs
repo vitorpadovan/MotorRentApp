@@ -1,9 +1,10 @@
 ﻿using BFF_MotorRentApp.Controllers.Validations;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BFF_MotorRentApp.Controllers.Requests.Vehicle
 {
-    public class VehicleRegistration
+    public class VehicleRegistrationRequest
     {
         [LicensePlateValidation]
         public string LicensePlate { get; set; } = String.Empty;
@@ -11,6 +12,8 @@ namespace BFF_MotorRentApp.Controllers.Requests.Vehicle
         [YearValidation]
         public int Year { get; set; }
 
-        public int GetMax() { return Year; }
+        [NotNull]
+        [Required]
+        public string Model { get; set; }
     }
 }
