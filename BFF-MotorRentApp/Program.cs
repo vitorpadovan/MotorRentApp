@@ -52,7 +52,17 @@ namespace BFF_MotorRentApp
 
             #region MySql Config
             var mySqlConnection = builder.Configuration.GetConnectionString("Mysql");
-            builder.Services.AddDbContext<AppDbContext>(opt => opt.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
+            builder.Services.AddDbContext<AppDbContext>(opt =>
+            {
+                opt.UseMySql(
+                    mySqlConnection,
+                    ServerVersion.AutoDetect(mySqlConnection),
+                    options => options.EnableRetryOnFailure(
+                        maxRetryCount: 20,
+                        maxRetryDelay: TimeSpan.FromSeconds(30),
+                        errorNumbersToAdd: null)
+                    );
+            });
             #endregion
 
             #region Auth Config
@@ -111,7 +121,7 @@ namespace BFF_MotorRentApp
             builder.Services.AddScoped<IBackgroundTaskBusiness, BackgroundTaskBusiness>();
             builder.Services.AddScoped<IVehicleBusiness, VehicleBusiness>();
             builder.Services.AddScoped<IUserBusiness, UserBusiness>();
-            builder.Services.AddScoped<ITokenService,TokenService>();
+            builder.Services.AddScoped<ITokenService, TokenService>();
 
             builder.Services.AddRabbitMqService();
 
